@@ -1,7 +1,6 @@
 import { IoIosNotificationsOutline } from 'react-icons/io';
 import { MdOutlinePushPin } from 'react-icons/md';
 import { BsPeople } from 'react-icons/bs';
-import { Input } from '@/components/ui/input.tsx';
 
 import { CiSearch } from 'react-icons/ci';
 import { IoSend } from 'react-icons/io5';
@@ -13,37 +12,41 @@ interface Props {
 
 const ChatHeader = ({ channelName }: Props) => {
   return (
-    <div className='flex items-center justify-between p-2'>
-      {/*left part of the header in the chat section.*/}
-      <div className='chatHeaderLeft'>
-        <h3>
-          <span className='chatHeaderHash'>#</span>
+    <header className='flex items-center justify-between p-2'>
+      <div className='chat-header-left'>
+        <h3 className='chat-header-title'>
+          <span className='chat-header-hash'>#</span>
           {channelName}
         </h3>
       </div>
-      {/*right part of the header in the chat section.*/}
-      <div className='flex justify-end items-center gap-3 w-full'>
-        <button>
+
+      <div className='chat-header-right flex justify-end items-center gap-3 w-full'>
+        <button aria-label='Notifications'>
           <IoIosNotificationsOutline />
         </button>
-        <button>
+        <button aria-label='Pin'>
           <MdOutlinePushPin />
         </button>
-        <button>
+        <button aria-label='Members'>
           <BsPeople />
         </button>
-        <div className='flex items-center gap-3'>
-          <div className={'bg-gray-800 p-1 rounded'}>
-            <input type='text' placeholder='search...' className='bg-transparent outline-none w-80' />
-            <button>
+
+        <div className='search-container flex items-center gap-3'>
+          <div className='search-box bg-gray-800 p-1 rounded flex items-center'>
+            <input type='text' placeholder='Search...' className='search-input bg-transparent outline-none w-80' />
+            <button aria-label='Search'>
               <CiSearch />
             </button>
           </div>
-          <IoSend />
-          <FaRegQuestionCircle />
+          <button aria-label='Send'>
+            <IoSend />
+          </button>
+          <button aria-label='Help'>
+            <FaRegQuestionCircle />
+          </button>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

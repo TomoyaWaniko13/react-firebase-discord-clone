@@ -3,11 +3,11 @@ import Chat from '@/components/Chat.tsx';
 
 function App() {
   return (
-    <div className={'flex w-screen '}>
+    <div className={'flex w-screen'}>
       <div>
         <Sidebar />
       </div>
-      <div className={'w-screen'}>
+      <div className={'flex-grow'}>
         <Chat />
       </div>
     </div>
