@@ -1,6 +1,8 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar.tsx';
 import { MdAdd, MdExpandMore } from 'react-icons/md';
 import SidebarChannelList from '@/components/SidebarChannelList.tsx';
+import { CiHeadphones, CiMicrophoneOn } from 'react-icons/ci';
+import { GoGear } from 'react-icons/go';
 
 const Sidebar = () => {
   return (
@@ -38,12 +40,23 @@ const Sidebar = () => {
             </button>
           </button>
         </div>
+        {/*channel list*/}
         <div>
           <SidebarChannelList />
           <SidebarChannelList />
           <SidebarChannelList />
           <SidebarChannelList />
         </div>
+        {/*footer part of the sidebar*/}
+        <footer className={'absolute bottom-2 flex items-center gap-2'}>
+          <Avatar className={'size-8'}>
+            <AvatarImage src='https://github.com/shadcn.png' />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+          <CiMicrophoneOn size={24} />
+          <CiHeadphones size={24} />
+          <GoGear size={24} />
+        </footer>
       </section>
     </aside>
   );
