@@ -8,7 +8,7 @@ const Sidebar = () => {
   return (
     <aside className={'flex h-screen'}>
       {/*left part of the sidebar*/}
-      <nav className={'flex flex-col gap-3 bg-gray-800 p-2'}>
+      <nav className={'flex flex-col gap-3 bg-gray-950 p-2'}>
         <Avatar>
           <AvatarImage src='https://github.com/shadcn.png' />
           <AvatarFallback>CN</AvatarFallback>
@@ -23,15 +23,15 @@ const Sidebar = () => {
         </Avatar>
       </nav>
       {/*right part of the sidebar*/}
-      <section className={'p-2 flex flex-col gap-1 bg-gray-700 text-white'}>
-        <div>
+      <section className={'flex flex-col gap-1 bg-gray-800 text-white w-full p-2'}>
+        <header>
           <button className={'flex items-center justify-between w-full gap-2'}>
             <span>discord</span>
             <MdExpandMore />
           </button>
-        </div>
+        </header>
         {/*channels in the right part of the sidebar*/}
-        <div>
+        <article>
           <button className={'flex items-center justify-between w-full gap-2'}>
             <MdExpandMore />
             <h4>Programming </h4>
@@ -39,14 +39,14 @@ const Sidebar = () => {
               <MdAdd />
             </button>
           </button>
-        </div>
+        </article>
         {/*channel list*/}
-        <div>
+        <main>
           <SidebarChannelList />
           <SidebarChannelList />
           <SidebarChannelList />
           <SidebarChannelList />
-        </div>
+        </main>
         {/*footer part of the sidebar*/}
         <footer className={'absolute bottom-2 flex items-center gap-2'}>
           <Avatar className={'size-8'}>
