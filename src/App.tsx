@@ -5,7 +5,7 @@ import { RootState } from '@/app/store.ts';
 import { useEffect } from 'react';
 import { auth } from '@/firebase.ts';
 import { useAppDispatch, useAppSelector } from '@/app/hooks.ts';
-import { login } from '@/features/userSlice.ts';
+import { login, logout } from '@/features/userSlice.ts';
 
 function App() {
   const user = useAppSelector((state: RootState) => state.user);
@@ -23,6 +23,8 @@ function App() {
             displayName: loginUser.displayName,
           }),
         );
+      } else {
+        dispatch(logout());
       }
     });
   }, []);

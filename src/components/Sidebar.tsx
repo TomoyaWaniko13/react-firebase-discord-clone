@@ -3,24 +3,31 @@ import { MdAdd, MdExpandMore } from 'react-icons/md';
 import SidebarChannelList from '@/components/SidebarChannelList.tsx';
 import { CiHeadphones, CiMicrophoneOn } from 'react-icons/ci';
 import { GoGear } from 'react-icons/go';
+import { auth } from '@/firebase.ts';
 
 const Sidebar = () => {
   return (
     <aside className={'flex h-screen'}>
       {/*left part of the sidebar*/}
       <nav className={'flex flex-col gap-3 bg-gray-950 p-2'}>
-        <Avatar>
-          <AvatarImage src='https://github.com/shadcn.png' />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
-        <Avatar>
-          <AvatarImage src='https://github.com/shadcn.png' />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
-        <Avatar>
-          <AvatarImage src='https://github.com/shadcn.png' />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
+        <button>
+          <Avatar>
+            <AvatarImage src='https://github.com/shadcn.png' />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+        </button>
+        <button>
+          <Avatar>
+            <AvatarImage src='https://github.com/shadcn.png' />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+        </button>
+        <button>
+          <Avatar>
+            <AvatarImage src='https://github.com/shadcn.png' />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+        </button>
       </nav>
       {/*right part of the sidebar*/}
       <section className={'flex flex-col gap-1 bg-gray-800 text-white w-full p-2'}>
@@ -49,13 +56,21 @@ const Sidebar = () => {
         </main>
         {/*footer part of the sidebar*/}
         <footer className={'absolute bottom-2 flex items-center gap-2'}>
-          <Avatar className={'size-8'}>
-            <AvatarImage src='https://github.com/shadcn.png' />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
-          <CiMicrophoneOn size={24} />
-          <CiHeadphones size={24} />
-          <GoGear size={24} />
+          <button onClick={() => auth.signOut()}>
+            <Avatar className={'size-8'}>
+              <AvatarImage src='https://github.com/shadcn.png' />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+          </button>
+          <button>
+            <CiMicrophoneOn size={24} />
+          </button>
+          <button>
+            <CiHeadphones size={24} />
+          </button>
+          <button>
+            <GoGear size={24} />
+          </button>
         </footer>
       </section>
     </aside>
