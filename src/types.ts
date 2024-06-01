@@ -1,6 +1,6 @@
 export interface InitialUserState {
   user: null | {
-    userId: string;
+    uid: string;
     photo: string;
     email: string;
     displayName: string;
