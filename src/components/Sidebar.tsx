@@ -3,9 +3,25 @@ import { MdAdd, MdExpandMore } from 'react-icons/md';
 import SidebarChannelList from '@/components/SidebarChannelList.tsx';
 import { CiHeadphones, CiMicrophoneOn } from 'react-icons/ci';
 import { GoGear } from 'react-icons/go';
-import { auth } from '@/firebase.ts';
+import { auth, db } from '@/firebase.ts';
+import { useAppSelector } from '@/app/hooks.ts';
+import { collection, query, where, onSnapshot } from 'firebase/firestore';
+import { useEffect } from 'react';
 
 const Sidebar = () => {
+  const user = useAppSelector((state) => state.user);
+
+  // check this documentation for the onSnapshot():
+  // https://firebase.google.com/docs/firestore/query-data/listen#listen_to_multiple_documents_in_a_collection
+  const q = query(collection(db, 'channels'));
+  useEffect(() => {
+    onSnapshot(q, (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        console.log(doc);
+      });
+    });
+  });
+
   return (
     <aside className={'flex h-screen'}>
       {/*left part of the sidebar*/}
@@ -55,22 +71,28 @@ const Sidebar = () => {
           <SidebarChannelList />
         </main>
         {/*footer part of the sidebar*/}
-        <footer className={'absolute bottom-2 flex items-center gap-2'}>
-          <button onClick={() => auth.signOut()}>
-            <Avatar className={'size-8'}>
-              <AvatarImage src='https://github.com/shadcn.png' />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-          </button>
-          <button>
-            <CiMicrophoneOn size={24} />
-          </button>
-          <button>
-            <CiHeadphones size={24} />
-          </button>
-          <button>
-            <GoGear size={24} />
-          </button>
+        <footer className={'absolute bottom-2 flex flex-col items-center gap-2'}>
+          <div>
+            <button onClick={() => auth.signOut()} className={'flex items-center gap-2'}>
+              <Avatar className={'size-8'}>
+                <AvatarImage src={user?.photo} />
+                <AvatarFallback>{user?.displayName}</AvatarFallback>
+              </Avatar>
+              <span className={'text-sm'}>{user?.displayName}</span>
+            </button>
+          </div>
+
+          <div className={'flex gap-3'}>
+            <button>
+              <CiMicrophoneOn size={24} />
+            </button>
+            <button>
+              <CiHeadphones size={24} />
+            </button>
+            <button>
+              <GoGear size={24} />
+            </button>
+          </div>
         </footer>
       </section>
     </aside>

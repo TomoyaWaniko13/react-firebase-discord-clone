@@ -11,6 +11,7 @@ function App() {
   const user = useAppSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
 
+  // check this documentation:
   // https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#onauthstatechanged
   useEffect(() => {
     auth.onAuthStateChanged((loginUser) => {
