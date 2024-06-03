@@ -5,41 +5,11 @@ import { CiHeadphones, CiMicrophoneOn } from 'react-icons/ci';
 import { GoGear } from 'react-icons/go';
 import { auth, db } from '@/firebase.ts';
 import { useAppSelector } from '@/app/hooks.ts';
-import { collection, onSnapshot, query, DocumentData } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
-
-interface Channel {
-  id: string;
-  channel: DocumentData;
-}
+import useFirebaseCollection from '@/hooks/useFirebaseCollection.tsx';
 
 const Sidebar = () => {
-  const [channels, setChannels] = useState<Channel[]>([]);
   const user = useAppSelector((state) => state.user);
-
-  // For getting data with Could Firestore, check for this documentation:
-  // https://firebase.google.com/docs/firestore/query-data/get-data
-  // For getting realtime updates with Cloud Firestore, check for this documentation:
-  // https://firebase.google.com/docs/firestore/query-data/listen
-
-  const q = query(collection(db, 'channels'));
-
-  useEffect(() => {
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const channelsResults: Channel[] = [];
-      querySnapshot.docs.forEach((doc) =>
-        channelsResults.push({
-          id: doc.id,
-          channel: doc.data(),
-        }),
-      );
-      setChannels(channelsResults);
-    });
-
-    return () => unsubscribe();
-  }, []);
-
-  // console.log(channels);
+  const { documents: channels } = useFirebaseCollection('channels');
 
   return (
     <aside className={'flex h-screen'}>
