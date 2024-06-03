@@ -5,22 +5,41 @@ import { CiHeadphones, CiMicrophoneOn } from 'react-icons/ci';
 import { GoGear } from 'react-icons/go';
 import { auth, db } from '@/firebase.ts';
 import { useAppSelector } from '@/app/hooks.ts';
-import { collection, query, where, onSnapshot } from 'firebase/firestore';
-import { useEffect } from 'react';
+import { collection, onSnapshot, query, DocumentData } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+
+interface Channel {
+  id: string;
+  channel: DocumentData;
+}
 
 const Sidebar = () => {
+  const [channels, setChannels] = useState<Channel[]>([]);
   const user = useAppSelector((state) => state.user);
 
-  // check this documentation for the onSnapshot():
-  // https://firebase.google.com/docs/firestore/query-data/listen#listen_to_multiple_documents_in_a_collection
+  // For getting data with Could Firestore, check for this documentation:
+  // https://firebase.google.com/docs/firestore/query-data/get-data
+  // For getting realtime updates with Cloud Firestore, check for this documentation:
+  // https://firebase.google.com/docs/firestore/query-data/listen
+
   const q = query(collection(db, 'channels'));
+
   useEffect(() => {
-    onSnapshot(q, (querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        console.log(doc);
-      });
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const channelsResults: Channel[] = [];
+      querySnapshot.docs.forEach((doc) =>
+        channelsResults.push({
+          id: doc.id,
+          channel: doc.data(),
+        }),
+      );
+      setChannels(channelsResults);
     });
-  });
+
+    return () => unsubscribe();
+  }, []);
+
+  // console.log(channels);
 
   return (
     <aside className={'flex h-screen'}>
@@ -65,10 +84,9 @@ const Sidebar = () => {
         </article>
         {/*channel list*/}
         <main>
-          <SidebarChannelList />
-          <SidebarChannelList />
-          <SidebarChannelList />
-          <SidebarChannelList />
+          {channels.map((channel) => (
+            <SidebarChannelList key={channel.id} id={channel.id} channel={channel} />
+          ))}
         </main>
         {/*footer part of the sidebar*/}
         <footer className={'absolute bottom-2 flex flex-col items-center gap-2'}>
