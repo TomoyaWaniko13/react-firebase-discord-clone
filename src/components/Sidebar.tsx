@@ -6,10 +6,20 @@ import { GoGear } from 'react-icons/go';
 import { auth, db } from '@/firebase.ts';
 import { useAppSelector } from '@/app/hooks.ts';
 import useFirebaseCollection from '@/hooks/useFirebaseCollection.tsx';
+import { collection, addDoc } from 'firebase/firestore';
 
 const Sidebar = () => {
   const user = useAppSelector((state) => state.user);
   const { documents: channels } = useFirebaseCollection('channels');
+
+  const addChannel = async () => {
+    const channelName: string | null = prompt('create new channel');
+    if (channelName) {
+      await addDoc(collection(db, 'channels'), {
+        channelName,
+      });
+    }
+  };
 
   return (
     <aside className={'flex h-screen'}>
@@ -47,7 +57,7 @@ const Sidebar = () => {
           <button className={'flex items-center justify-between w-full gap-2'}>
             <MdExpandMore />
             <h4>Programming </h4>
-            <button>
+            <button onClick={() => addChannel()}>
               <MdAdd />
             </button>
           </button>

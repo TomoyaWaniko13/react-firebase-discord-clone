@@ -8,7 +8,7 @@ interface Channels {
   channel: DocumentData;
 }
 
-const UseFireStoreCollection = (data: string) => {
+const useFireStoreCollection = (data: string) => {
   const [documents, setDocuments] = useState<Channels[]>([]);
 
   // For getting data with Could Firestore, check for this documentation:
@@ -38,4 +38,4 @@ const UseFireStoreCollection = (data: string) => {
   // console.log(channels);
 };
 
-export default UseFireStoreCollection;
+export default useFireStoreCollection;
