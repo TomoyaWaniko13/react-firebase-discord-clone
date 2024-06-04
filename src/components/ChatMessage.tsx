@@ -1,21 +1,34 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar.tsx';
-import { useAppSelector } from '@/app/hooks.ts';
+import { Timestamp } from 'firebase/firestore';
 
-const ChatMessage = () => {
+interface Props {
+  timestamp: Timestamp | null;
+  message: string;
+  user: {
+    uid: string;
+    photo: string;
+    email: string;
+    displayName: string;
+  };
+}
+
+const ChatMessage = ({ message, timestamp, user }: Props) => {
+  const formattedDate = timestamp ? new Date(timestamp.toDate()).toLocaleString() : 'Invalid date';
+
   return (
     <div className={'flex items-center gap-3'}>
       <div>
         <Avatar>
-          <AvatarImage src='https://github.com/shadcn.png' />
+          <AvatarImage src={user?.photo} />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
       </div>
       <div className={'flex-col'}>
         <div className={'flex flex-row'}>
-          <p>tomoya</p>
-          <time>2024/11/11</time>
+          <p>{user?.displayName}</p>
+          <time>{formattedDate}</time>
         </div>
-        <p>message</p>
+        <p>{message}</p>
       </div>
     </div>
   );
