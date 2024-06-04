@@ -1,8 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from '@/features/userSlice.ts';
+import channelReducer from '@/features/channelSlice.ts';
 
 export const store = configureStore({
-  reducer: userReducer,
+  reducer: {
+    user: userReducer,
+    channel: channelReducer,
+  },
 });
 
 // https://redux-toolkit.js.org/usage/usage-with-typescript#getting-the-dispatch-type

@@ -9,7 +9,8 @@ import useFirebaseCollection from '@/hooks/useFirebaseCollection.tsx';
 import { collection, addDoc } from 'firebase/firestore';
 
 const Sidebar = () => {
-  const user = useAppSelector((state) => state.user);
+  const user = useAppSelector((state) => state.user.user);
+
   const { documents: channels } = useFirebaseCollection('channels');
 
   const addChannel = async () => {

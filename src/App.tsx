@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '@/app/hooks.ts';
 import { login, logout } from '@/features/userSlice.ts';
 
 function App() {
-  const user = useAppSelector((state: RootState) => state.user);
+  const user = useAppSelector((state: RootState) => state.user.user);
   const dispatch = useAppDispatch();
 
   // check this documentation:
